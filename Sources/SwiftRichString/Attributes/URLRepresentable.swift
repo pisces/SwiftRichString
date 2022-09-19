@@ -40,7 +40,7 @@ extension URL: URLRepresentable {
         return self
     }
     
-    public init?(string: String?) {
+    init?(string: String?) {
         guard let string = string else {
             return nil
         }
