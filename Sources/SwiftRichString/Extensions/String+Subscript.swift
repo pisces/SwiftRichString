@@ -74,7 +74,7 @@ public extension String {
 	///
 	/// - Parameter index: index of the character
 	/// - Returns: `Character` instance at passed index, `nil` if range is out of bounds.
-	subscript(index: Int) -> Character? {
+	internal subscript(index: Int) -> Character? {
 		guard !self.isEmpty, let stringIndex = self.index(startIndex, offsetBy: index, limitedBy: self.index(before: endIndex)) else { return nil }
 		return self[stringIndex]
 	}
@@ -84,7 +84,7 @@ public extension String {
 	/// `String[0..<1]`
 	///
 	/// - Parameter value: substring
-	subscript(range: Range<Int>) -> Substring? {
+    internal subscript(range: Range<Int>) -> Substring? {
 		guard let left = offset(by: range.lowerBound) else { return nil }
 		guard let right = index(left, offsetBy: range.upperBound - range.lowerBound,
 								limitedBy: endIndex) else { return nil }
@@ -95,7 +95,7 @@ public extension String {
 	/// `String[..<1]`
 	///
 	/// - Parameter value: substring
-	subscript(value: PartialRangeUpTo<Int>) -> Substring? {
+    internal subscript(value: PartialRangeUpTo<Int>) -> Substring? {
 		if value.upperBound < 0 {
 			guard abs(value.upperBound) <= count else { return nil }
 			return self[..<(count - abs(value.upperBound))]
@@ -108,7 +108,7 @@ public extension String {
 	/// `String[...1]`
 	///
 	/// - Parameter range: closed subrange.
-	subscript(range: ClosedRange<Int>) -> Substring? {
+    internal subscript(range: ClosedRange<Int>) -> Substring? {
 		if range.upperBound < 0 {
 			guard abs(range.lowerBound) <= count else { return nil }
 			return self[(count - abs(range.lowerBound))...]
@@ -122,7 +122,7 @@ public extension String {
 	/// `String[1...]`
 	///
 	/// - Parameter value: substring
-	subscript(value: PartialRangeFrom<Int>) -> Substring? {
+    internal subscript(value: PartialRangeFrom<Int>) -> Substring? {
 		guard let left = self.offset(by: value.lowerBound) else { return nil }
 		return self[left...]
 	}
@@ -131,7 +131,7 @@ public extension String {
 	/// `String[...2]`
 	///
 	/// - Parameter value: substring
-	subscript(value: PartialRangeThrough<Int>) -> Substring? {
+    internal subscript(value: PartialRangeThrough<Int>) -> Substring? {
 		guard let right = self.offset(by: value.upperBound) else { return nil }
 		return self[...right]
 	}
